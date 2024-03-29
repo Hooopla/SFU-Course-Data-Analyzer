@@ -1,0 +1,4 @@
+rootProject.name = 'CMPT213AS5'
+include 'src:main:AS5'
+findProject(':src:main:AS5')?.name = 'AS5'
+
