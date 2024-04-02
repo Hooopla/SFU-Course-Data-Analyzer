@@ -3,10 +3,13 @@ package Model;
 import java.util.Observer;
 
 public class Course implements Subject{
+    private long courseId;
+    private String catalogNumber;
 
 
     @Override
     public void addObserver(Observer observer) {
+        
 
     }
 
