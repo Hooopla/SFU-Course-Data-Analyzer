@@ -21,14 +21,6 @@ public class Course implements Subject{
     public void addCourseOffering(CourseData courseData) {
         boolean courseExists = false;
 
-        for (CourseOfferings offering : courseOfferingsList) {
-            if (offering.getSemesterCode() == courseData.getSemester()) {
-                courseExists = true;
-                //
-            }
-
-        }
-
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Model;
 
 public class CourseData {
-    private int semester;
+    private int semesterId;
     private String subjectName; // Example <- CMPT...
     private String catalogNumber; // The course number so like 213
     private String location;
@@ -17,7 +17,7 @@ public class CourseData {
                       String instructor,
                       String componentCode) {
 
-        this.semester = semesterId;
+        this.semesterId = semesterId;
         this.subjectName = subject;
         this.catalogNumber = catalogNumber;
         this.location = location;
@@ -34,8 +34,8 @@ public class CourseData {
         return subjectName + " " + catalogNumber;
     }
 
-    public int getSemester() {
-        return semester;
+    public int getSemesterId() {
+        return semesterId;
     }
 
     public String getSubjectName() {
