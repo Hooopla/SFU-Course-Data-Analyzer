@@ -3,6 +3,11 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsbile for a class itself like CMPT.
+ *
+ */
+
 public class Course implements Subject{
     private long courseId;
     private String catalogNumber;
@@ -20,6 +25,13 @@ public class Course implements Subject{
 
     public void addCourseOffering(CourseData courseData) {
         boolean courseExists = false;
+
+        for (CourseOfferings currentOffering : courseOfferingsList) {
+            if (currentOffering.getSemesterId() == courseData.getSemesterId()) {
+                courseExists = true;
+
+            }
+        }
 
     }
 
