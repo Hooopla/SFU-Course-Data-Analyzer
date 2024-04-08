@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class Course implements Subject{
     private long courseId;
@@ -20,8 +19,7 @@ public class Course implements Subject{
 
     @Override
     public void addObserver(Observer observer) {
-        
-
+        observers.add(observer);
     }
 
     @Override
@@ -31,6 +29,6 @@ public class Course implements Subject{
 
     @Override
     public void notifyObservers(CourseOfferings offerings, CourseData data) {
-
+        observers.forEach(obs -> obs.changedState(offerings, data));
     }
 }
