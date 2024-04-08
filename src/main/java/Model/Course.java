@@ -9,13 +9,27 @@ public class Course implements Subject{
     private String catalogNumber;
 
     private List<CourseOfferings> courseOfferingsList;
-    private List<Observer> observers;
+    private List<Observer> observerList;
 
     public Course(long courseId, CourseData data) {
         this.courseId = courseId;
         this.catalogNumber = data.getCatalogNumber();
         this.courseOfferingsList = new ArrayList<>();
-        this.observers = new ArrayList<>();
+        this.observerList = new ArrayList<>();
+    }
+
+
+    public void addCourseOffering(CourseData courseData) {
+        boolean courseExists = false;
+
+        for (CourseOfferings offering : courseOfferingsList) {
+            if (offering.getSemesterCode() == courseData.getSemester()) {
+                courseExists = true;
+                //
+            }
+
+        }
+
     }
 
     @Override

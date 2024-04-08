@@ -2,13 +2,13 @@ package Model;
 
 public class CourseData {
     private int semester;
-    private String subjectName;
-    private String catalogNumber;
+    private String subjectName; // Example <- CMPT...
+    private String catalogNumber; // The course number so like 213
     private String location;
-    private int enrollmentCap;
-    private int enrollmentTotal;
-    private String instructor;
-    private String component;
+    private int enrollmentCap; // Enrollment Capacity
+    private int enrollmentTotal; // The total amount of people for this section
+    private String instructor; //
+    private String component; // <- Lec / TUT, SEC,OPL
 
     public CourseData(int semesterId, String subject,
                       String catalogNumber, String location,
