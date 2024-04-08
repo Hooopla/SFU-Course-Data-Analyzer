@@ -33,7 +33,7 @@ public class Course implements Subject{
 
     @Override
     public void addObserver(Observer observer) {
-        observers.add(observer);
+        observerList.add(observer);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class Course implements Subject{
 
     @Override
     public void notifyObservers(CourseOfferings offerings, CourseData data) {
-        observers.forEach(obs -> obs.changedState(offerings, data));
+        observerList.forEach(obs -> obs.changedState(offerings, data));
     }
 }

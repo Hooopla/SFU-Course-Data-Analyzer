@@ -5,7 +5,7 @@ package Model;
  */
 
 public class API {
-    private String appName = "Course Planner Application";
+    private String appName = "Course Planner Controller.Application";
     private String authorName = "Gabriel B. & Alex V.";
 
     public API(String appName, String authorName) {
