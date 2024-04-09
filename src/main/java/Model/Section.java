@@ -1,8 +1,7 @@
 package Model;
 
 /**
- * This is responsible for a certain section of a class. Example CMPT 120 has CMPT D100 D200 D300.
- * This class will only then handle section D200
+ * This class is responsible for like the different LEC and LABS
  */
 
 public class Section {

@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is responsible for the different types of offering within a course itself.
- * Example CMPT 120 will have many different classes
- * So CMPT 120 D100 D200 D300
- *
+ * Holds a list of all Past & Current Offerings of the course
+ * FALL 2012 SPRING 2013 SUMMER 2018
  */
 
 public class CourseOfferings {
     private long courseOfferingsId;
-    private SpecificCourseOffering course;
+    //private SpecificCourseOffering course;
     private String location;
     private String instructors;
     private String term;
@@ -26,7 +24,7 @@ public class CourseOfferings {
     // Constructors
     public CourseOfferings(long courseId, long courseOfferingsId, CourseData data) {
         this.courseOfferingsId = courseOfferingsId;
-        this.course = new SpecificCourseOffering(data.getCatalogNumber(), courseId);
+        //this.course = new SpecificCourseOffering(data.getCatalogNumber(), courseId);
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
         this.term = calculateTerm(data.getSemesterId());
@@ -39,7 +37,7 @@ public class CourseOfferings {
     // 0 - Will be designated for Courses that are being watched by an observer.
     public CourseOfferings(CourseData courseData) {
         this.courseOfferingsId = 0;
-        this.course = new SpecificCourseOffering(courseData.getCatalogNumber(), courseOfferingsId);
+        //this.course = new SpecificCourseOffering(courseData.getCatalogNumber(), courseOfferingsId);
         this.location = courseData.getLocation();
         this.instructors = courseData.getInstructor();
         this.term = calculateTerm(courseData.getSemesterId());
@@ -127,10 +125,6 @@ public class CourseOfferings {
 
     public long getCourseOfferingsId() {
         return courseOfferingsId;
-    }
-
-    public SpecificCourseOffering getCourse() {
-        return course;
     }
 
     public String getLocation() {
