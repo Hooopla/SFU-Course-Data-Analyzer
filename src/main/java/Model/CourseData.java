@@ -25,7 +25,6 @@ public class CourseData {
         this.enrollmentTotal = enrollmentTotal;
         this.instructor = instructor;
         this.component = componentCode;
-
     }
 
     public CourseData() {}

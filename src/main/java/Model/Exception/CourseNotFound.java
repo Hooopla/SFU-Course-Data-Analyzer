@@ -1,4 +1,4 @@
 package Model.Exception;
 
-public class CourseNotFound {
+public class CourseNotFound extends RuntimeException{
 }
