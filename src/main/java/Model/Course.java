@@ -12,7 +12,6 @@ import java.util.List;
 public class Course implements Subject{
     private long courseId;
     private String catalogNumber;
-
     private List<CourseOfferings> courseOfferingsList;
     private List<Observer> observerList;
 
