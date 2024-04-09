@@ -32,6 +32,16 @@ public class CourseOfferings {
     }
 
     // For Observer Constructor
+    // 0 - Will be designated for Courses that are being watched by an observer.
+    public CourseOfferings(CourseData courseData) {
+        this.courseOfferingsId = 0;
+        this.course = new SpecificCourseOffering(courseData.getCatalogNumber(), courseOfferingsId);
+        this.location = courseData.getLocation();
+        this.instructors = courseData.getInstructor();
+        this.term = calculateTerm(courseData.getSemesterId());
+        this.year = calculateYear(courseData.getSemesterId());
+        this.sectionList = new ArrayList<>();
+    }
 
     // Add Section
     public void addSection(CourseData data) {
