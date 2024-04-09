@@ -1,11 +1,15 @@
 package Model;
 
+import Model.Exception.CourseOfferingsNotFound;
+import Model.Exception.SectionNotFound;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class is responsible for the different types of offering within a course itself.
  * Example CMPT 120 will have many different classes
+ * So CMPT 120 D100 D200 D300
  *
  */
 
@@ -97,16 +101,22 @@ public class CourseOfferings {
     }
 
     // Find Section
-    public Section findSection(CourseData data) {
+    public Section findSection(CourseData courseData) {
         for (Section currentSection : sectionList) {
-            if (currentSection.getType().equals(data.getComponent()) && currentSection.getEnrollmentTotal() == data.getEnrollmentTotal()
+            if (currentSection.getType().equals(courseData.getComponent()) && currentSection.getEnrollmentTotal() == courseData.getEnrollmentTotal()
                     && currentSection.getEnrollmentMax() == currentSection.getEnrollmentMax()) {
                 return currentSection;
             }
         }
-
-        // THIS WILL BE CHANGED SINCE I NEED TO THROW AN EXCEPTION!!
-        return null;
+        throw new SectionNotFound("Department: " + courseData.getSubjectName()
+                + " Course " + courseData.getCatalogNumber()
+                + " Semester Offered " + courseData.getSemesterId()
+                + " Section " + courseData.getComponent()
+                + " "
+                + courseData.getEnrollmentTotal()
+                + "/"
+                + courseData.getEnrollmentCap()
+                + " Section not found :(" );
     }
 
     // Sort our Sections
