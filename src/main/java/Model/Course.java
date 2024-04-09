@@ -47,7 +47,7 @@ public class Course implements Subject{
             CourseOfferings newOfferedCourse = new CourseOfferings(courseId, id, courseData);
             newOfferedCourse.addSection(courseData);
             courseOfferingsList.add(newOfferedCourse);
-            // Sort
+            sortCourseOfferings();
         }
         // Create an CourseOffering object for the observer
         CourseOfferings newCourseOfferingsObserver = new CourseOfferings(courseData);
