@@ -50,7 +50,9 @@ public class Course implements Subject{
             // Sort
         }
         // Create an CourseOffering object for the observer
+        CourseOfferings newCourseOfferingsObserver = new CourseOfferings(courseData);
         // NOTIFY OBSERVERS HERE
+        notifyObservers(newCourseOfferingsObserver, courseData);
     }
 
     public CourseOfferings findCourseOfferings(CourseData courseData) {
@@ -86,6 +88,7 @@ public class Course implements Subject{
 
     @Override
     public void removeObserver(Observer observer) {
+        observerList.remove(observer);
 
     }
 
