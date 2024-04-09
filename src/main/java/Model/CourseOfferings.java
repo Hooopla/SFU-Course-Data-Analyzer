@@ -31,6 +31,8 @@ public class CourseOfferings {
         this.sectionList = new ArrayList<>();
     }
 
+    // For Observer Constructor
+
     // Add Section
     public void addSection(CourseData data) {
 
