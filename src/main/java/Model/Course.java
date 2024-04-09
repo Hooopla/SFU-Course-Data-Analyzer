@@ -1,16 +1,18 @@
 package Model;
 
+import Model.Exception.CourseOfferingsNotFound;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * This class is responsbile for a class itself like CMPT.
+ * This class is responsbile for a class itself like CMPT 120.
  *
  */
 
 public class Course implements Subject{
-    private long courseId;
+    private long courseId; // <-- Unique quantifier code for this Course
     private String catalogNumber;
     private List<CourseOfferings> courseOfferingsList;
     private List<Observer> observerList;
@@ -61,8 +63,10 @@ public class Course implements Subject{
                 return currentCourseOfferings;
             }
         }
-        // Throw error here
-        return null;
+        throw new CourseOfferingsNotFound("Department " + courseData.getSubjectName()
+                + " Course " + courseData.getCatalogNumber()
+                + " Semester Offered " + courseData.getSemesterId()
+                + " course offering not found.");
     }
 
     private void sortCourseOfferings() {
