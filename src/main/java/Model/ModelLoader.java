@@ -49,24 +49,24 @@ public class ModelLoader {
         );
     }
 
-    private void addToDepartment(List<Department> departmentList, CourseData data) {
-        boolean departmentNotFound = true;
-        Course course = new Course(0, data);
+    private void addToDepartment(List<Department> departmentList, CourseData courseData) {
+        boolean departmentFound = false;
+        // Course course = new Course(0, data); // TODO: Increment courseId
 
         for (Department department: departmentList) {
-            if (department.getDepartmentName().equals(data.getSubjectName())) {
+            if (department.getDepartmentName().equals(courseData.getSubjectName())) {
                 // Department already exists, add it to the courseList of the Department
-                department.addCourse(course);
-                departmentNotFound = false;
+                department.addCourse(courseData);
+                departmentFound = true;
                 break;
             }
         }
 
         // A department for the subjectName does not exist yet, make one and add the course
-        if (departmentNotFound) {
-            Department department = new Department(data.getSubjectName());
+        if (!departmentFound) {
+            Department department = new Department(courseData.getSubjectName());
 
-            department.addCourse(course);
+            department.addCourse(courseData);
             departmentList.add(department);
         }
     }

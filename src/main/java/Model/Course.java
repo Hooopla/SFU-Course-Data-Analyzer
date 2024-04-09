@@ -32,7 +32,6 @@ public class Course implements Subject{
 
        If it does not exsists this means we want to create a whole new course create a section for that course then add it to the list of courses we offer.
      */
-
     public void addCourseOffering(CourseData courseData) {
         boolean courseExists = false;
 
