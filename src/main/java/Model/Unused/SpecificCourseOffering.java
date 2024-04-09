@@ -1,4 +1,4 @@
-package Model;
+package Model.Unused;
 
 public class SpecificCourseOffering {
     private String catalogNumber;
