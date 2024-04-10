@@ -5,6 +5,7 @@ import Model.Exception.CourseOfferingsNotFound;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class is responsbile for a class itself like CMPT 120.
@@ -36,7 +37,7 @@ public class Course implements Subject{
         boolean courseExists = false;
 
         for (CourseOfferings currentOffering : courseOfferingsList) {
-            if (currentOffering.getSemesterId() == courseData.getSemesterId()) {
+            if (currentOffering.getSemesterId() == courseData.getSemesterId() && Objects.equals(currentOffering.getInstructors(), courseData.getInstructor())) {
                 courseExists = true;
                 currentOffering.addSection(courseData);
                 break;
