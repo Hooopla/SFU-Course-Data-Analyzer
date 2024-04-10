@@ -13,7 +13,6 @@ import java.util.List;
 
 public class CourseOfferings {
     private long courseOfferingsId;
-    //private SpecificCourseOffering course;
     private String location;
     private String instructors;
     private String term;
