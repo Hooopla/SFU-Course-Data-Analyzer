@@ -39,4 +39,8 @@ public class Department {
     public String getDepartmentName() {
         return departmentName;
     }
+
+    public Course getCourse(int index) {
+        return courseList.get(index);
+    }
 }

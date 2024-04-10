@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CourseOfferings;
 import Model.Department;
 import Model.DumpWriter;
 import Model.ModelLoader;
@@ -15,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class Controller {
     @GetMapping("dump-model")
-    private void dumpModel() {
+    private void printToConsole() {
         List<Department> departmentList = new ArrayList<>();
-        DumpWriter dump = new DumpWriter();
+        ModelLoader loader = new ModelLoader("data/small_data.csv", departmentList);
 
-        ModelLoader loader = new ModelLoader("data/course_data_2022.csv/", departmentList);
+        DumpWriter.dumpModel(departmentList);
     }
 }
