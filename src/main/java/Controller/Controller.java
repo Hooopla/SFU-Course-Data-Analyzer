@@ -18,8 +18,7 @@ public class Controller {
     @GetMapping("dump-model")
     private void printToConsole() {
         List<Department> departmentList = new ArrayList<>();
-        ModelLoader loader = new ModelLoader("data/small_data.csv", departmentList);
-
+        ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
         DumpWriter.dumpModel(departmentList);
     }
 }

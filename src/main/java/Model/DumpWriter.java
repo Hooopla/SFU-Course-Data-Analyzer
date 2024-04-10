@@ -18,6 +18,10 @@ public class DumpWriter {
                 System.out.println("    Year: " + offerings.getYear());
                 System.out.println("    Location: " + offerings.getLocation());
                 System.out.println("    Instructor: " + offerings.getInstructors());
+                List<Section> sectionList = offerings.getSectionList();
+                for(Section section : sectionList) {
+                    System.out.println("        Type = " + section.getType() + ", Enrollment=" + section.getEnrollmentTotal() + "/" + section.getEnrollmentMax());
+                }
             }
         }
     }

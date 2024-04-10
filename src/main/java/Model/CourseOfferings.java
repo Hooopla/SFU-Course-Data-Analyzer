@@ -21,7 +21,7 @@ public class CourseOfferings {
     private List<Section> sectionList;
 
     // Constructors
-    public CourseOfferings(long courseId, long courseOfferingsId, CourseData data) {
+    public CourseOfferings(long courseOfferingsId, CourseData data) {
         this.courseOfferingsId = courseOfferingsId;
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
@@ -45,20 +45,10 @@ public class CourseOfferings {
 
     // Add Section
     public void addSection(CourseData data) {
-
-        boolean sectionExists = false;
-        for (Section currentSection : sectionList) {
-            if (currentSection.getType().equals(data.getComponent()) && currentSection.getEnrollmentTotal() == data.getEnrollmentTotal()
-                    && currentSection.getEnrollmentMax() == currentSection.getEnrollmentMax()) {
-                sectionExists = true;
-                break;
-            }
-        }
-        if (!sectionExists) {
-            Section newSection = new Section(data);
-            sectionList.add(newSection);
-            sortSections();
-        }
+        int id = sectionList.size() + 1;
+        Section newSection = new Section(id, data);
+        sectionList.add(newSection);
+        sortSections();
     }
 
     // Calculate which term
@@ -94,25 +84,6 @@ public class CourseOfferings {
             }
         }
         return totalEnrollments;
-    }
-
-    // Find Section
-    public Section findSection(CourseData courseData) {
-        for (Section currentSection : sectionList) {
-            if (currentSection.getType().equals(courseData.getComponent()) && currentSection.getEnrollmentTotal() == courseData.getEnrollmentTotal()
-                    && currentSection.getEnrollmentMax() == currentSection.getEnrollmentMax()) {
-                return currentSection;
-            }
-        }
-        throw new SectionNotFound("Department: " + courseData.getSubjectName()
-                + " Course " + courseData.getCatalogNumber()
-                + " Semester Offered " + courseData.getSemesterId()
-                + " Section " + courseData.getComponent()
-                + " "
-                + courseData.getEnrollmentTotal()
-                + "/"
-                + courseData.getEnrollmentCap()
-                + " Section not found :(" );
     }
 
     // Sort our Sections

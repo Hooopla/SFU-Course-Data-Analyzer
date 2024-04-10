@@ -46,7 +46,7 @@ public class Course implements Subject{
 
         if (!courseExists) {
             int id = courseOfferingsList.size() + 1;
-            CourseOfferings newOfferedCourse = new CourseOfferings(courseId, id, courseData);
+            CourseOfferings newOfferedCourse = new CourseOfferings(id, courseData);
             newOfferedCourse.addSection(courseData);
             courseOfferingsList.add(newOfferedCourse);
             sortCourseOfferings();
