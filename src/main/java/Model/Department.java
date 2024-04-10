@@ -43,4 +43,8 @@ public class Department {
     public Course getCourse(int index) {
         return courseList.get(index);
     }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
 }

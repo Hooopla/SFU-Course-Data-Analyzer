@@ -7,22 +7,26 @@ import java.util.List;
  */
 public class DumpWriter {
     public static void dumpModel(List<Department> departmentList) {
-        int counter = 0;
         for (Department dep: departmentList) {
+            int courseCounter = 0;
             System.out.println("Department: " + dep.getDepartmentName());
-            System.out.println(dep.getDepartmentName() + " -> Course at index " + counter + ": " + dep.getCourse(counter).getCatalogNumber());
-            List<CourseOfferings> offeringsList = dep.getCourse(counter).getCourseOfferingsList();
 
-            System.out.println("CourseOfferings data for Course at index " + counter + ": ");
-            for (CourseOfferings offerings: offeringsList) {
-                System.out.println("    Year: " + offerings.getYear());
-                System.out.println("    Location: " + offerings.getLocation());
-                System.out.println("    Instructor: " + offerings.getInstructors());
-                List<Section> sectionList = offerings.getSectionList();
-                for(Section section : sectionList) {
-                    System.out.println("        Type = " + section.getType() + ", Enrollment=" + section.getEnrollmentTotal() + "/" + section.getEnrollmentMax());
+            for (Course course: dep.getCourseList()) {
+                System.out.println(dep.getDepartmentName() + " -> Course at index " + courseCounter + ": " + dep.getCourse(courseCounter).getCatalogNumber());
+                List<CourseOfferings> offeringsList = dep.getCourse(courseCounter).getCourseOfferingsList();
+                System.out.println("CourseOfferings data for Course");
+
+                for (CourseOfferings offerings: offeringsList) {
+                    System.out.println("    Year: " + offerings.getYear());
+                    System.out.println("    Location: " + offerings.getLocation());
+                    System.out.println("    Instructor: " + offerings.getInstructors());
+                    List<Section> sectionList = offerings.getSectionList();
+                    for(Section section : sectionList) {
+                        System.out.println("        Type = " + section.getType() + ", Enrollment=" + section.getEnrollmentTotal() + "/" + section.getEnrollmentMax());
+                    }
                 }
             }
+            courseCounter += 1;
         }
     }
 }
