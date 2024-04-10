@@ -25,8 +25,8 @@ public class DumpWriter {
                         System.out.println("        Type = " + section.getType() + ", Enrollment=" + section.getEnrollmentTotal() + "/" + section.getEnrollmentMax());
                     }
                 }
+                courseCounter += 1;
             }
-            courseCounter += 1;
         }
     }
 }
