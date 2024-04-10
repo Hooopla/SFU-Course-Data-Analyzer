@@ -24,7 +24,6 @@ public class CourseOfferings {
     // Constructors
     public CourseOfferings(long courseId, long courseOfferingsId, CourseData data) {
         this.courseOfferingsId = courseOfferingsId;
-        //this.course = new SpecificCourseOffering(data.getCatalogNumber(), courseId);
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
         this.term = calculateTerm(data.getSemesterId());
