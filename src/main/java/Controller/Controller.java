@@ -12,6 +12,7 @@ import java.util.List;
 public class Controller {
     private List<Department> departmentList = new ArrayList<>();
     private Authors authors = new Authors();
+    ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
 
     // About Us Page | @GetMapping
     @GetMapping("/about")
@@ -21,16 +22,18 @@ public class Controller {
 
 
     // Get List of Departments | @GetMapping
+    // Comments : Works!
     @GetMapping("/departments")
     public List<Department> getDepartmentList() {
         return departmentList;
     }
     // Get One Specific Department | @GetMapping
-    // Comment: Not sure if this works
+    // Comment: Works!
     @GetMapping("/departments/{departmentName}/courses")
     public List<Course> getDepartment(@PathVariable("departmentName") String departmentName) {
         for (Department department : departmentList) {
-            if(department.getDepartmentName().equals(departmentName)) {
+            if (department.getDepartmentName().trim().equals(departmentName)) {
+                System.out.println(department.getCourseList());
                 return department.getCourseList();
             }
         }
@@ -42,6 +45,16 @@ public class Controller {
 
     // Get List of Course | @GetMapping
     // Comment:
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings")
+    public List<CourseOfferings> getCourseOfferings(
+            @PathVariable("departmentName") String departmentName,
+            @PathVariable("courseId") long courseId) {
+
+        for (Department department : departmentList) {
+
+        }
+        return null;
+    }
 
     // Get One Specific Course | @GetMapping
     // Comment:
@@ -68,7 +81,6 @@ public class Controller {
     // Comment: Works Great!
     @GetMapping("dump-model")
     private void printToConsole() {
-        ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
         DumpWriter.dumpModel(departmentList);
     }
 }
