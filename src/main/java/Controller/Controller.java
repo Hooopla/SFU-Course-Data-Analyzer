@@ -48,7 +48,7 @@ public class Controller {
 
     // Get List of Sections @GetMapping | @GetMapping
     // Comment:
-    
+
     // Get One Specific Section @GetMapping | @GetMapping
     // Comment:
 
