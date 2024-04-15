@@ -1,10 +1,8 @@
 package Controller;
 
 import Model.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import Model.Exception.DepartmentNotFound;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,16 @@ public class Controller {
         return departmentList;
     }
     // Get One Specific Department | @GetMapping
-    // Comment:
+    // Comment: Not sure if this works
+    @GetMapping("/departments/{departmentName}/courses")
+    public List<Course> getDepartment(@PathVariable("departmentName") String departmentName) {
+        for (Department department : departmentList) {
+            if(department.getDepartmentName().equals(departmentName)) {
+                return department.getCourseList();
+            }
+        }
+        throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
+    }
 
     // Get Total Amount of Students in that department each Semester | @GetMapping
     // Comment: I need to watch the video again as I am not sure if this is going to be used in the graph or not.
