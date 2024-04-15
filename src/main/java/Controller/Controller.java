@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.Exception.CourseNotFound;
 import Model.Exception.DepartmentNotFound;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,6 @@ public class Controller {
     public List<Course> getDepartment(@PathVariable("departmentName") String departmentName) {
         for (Department department : departmentList) {
             if (department.getDepartmentName().trim().equals(departmentName)) {
-                System.out.println(department.getCourseList());
                 return department.getCourseList();
             }
         }
@@ -44,16 +44,26 @@ public class Controller {
     // Comment: I need to watch the video again as I am not sure if this is going to be used in the graph or not.
 
     // Get List of Course | @GetMapping
-    // Comment:
+    // Comment: Works!
     @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings")
     public List<CourseOfferings> getCourseOfferings(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("courseId") long courseId) {
-
+        boolean DepartmentFound = false;
         for (Department department : departmentList) {
-
+            if (department.getDepartmentName().trim().equals(departmentName)) {
+                DepartmentFound = true;
+                for (Course course : department.getCourseList()) {
+                    if (course.getCourseId() == courseId) {
+                        return course.getCourseOfferingsList();
+                    }
+                }
+            }
         }
-        return null;
+        if (DepartmentFound == false) {
+            throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
+        }
+        throw new CourseNotFound("Department: " + departmentName + "Course: " + courseId + " was not retrieved.");
     }
 
     // Get One Specific Course | @GetMapping
