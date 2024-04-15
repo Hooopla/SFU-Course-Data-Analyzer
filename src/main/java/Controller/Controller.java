@@ -58,6 +58,7 @@ public class Controller {
     // AddSection??
 
     // Get Dump Model | @GetMapping
+    // Comment: Works Great!
     @GetMapping("dump-model")
     private void printToConsole() {
         ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
