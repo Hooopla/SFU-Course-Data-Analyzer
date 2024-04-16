@@ -104,7 +104,7 @@ public class Controller {
     }
 
     // Department -> Course -> CourseOfferings -> SectionList -> Section| @GetMapping
-    // Comment: Working on it
+    // Comment: Works!!
     @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingsId}/sections/{sectionId}")
     public Section getSection(
             @PathVariable("departmentName") String departmentName,
@@ -147,8 +147,6 @@ public class Controller {
             throw new SectionNotFound("Section Not Found.");
         }
     }
-
-
 
     // HELLO ALEX IF U SEE THIS ANYTHING BELOW THIS IS FUNCTION THAT WE MAY NEED TO MAKE? I just need to rewatch the video or if u know u can get rid of it as needed.
     // AddCourseOffering??
