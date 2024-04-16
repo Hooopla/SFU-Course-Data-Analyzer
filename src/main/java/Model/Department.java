@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Department {
-    private String departmentName;
+    private String name;
     private List<Course> courseList = new ArrayList<>();
 
     public Department(String departmentName) {
-        this.departmentName = departmentName;
+        this.name = departmentName;
     }
 
     // Pre-condition: The departmentName and courseData.subjectName are the same.
@@ -36,8 +36,8 @@ public class Department {
         }
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
     public Course getCourse(int index) {

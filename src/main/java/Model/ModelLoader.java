@@ -56,7 +56,7 @@ public class ModelLoader {
         // Course course = new Course(0, data); // TODO: Increment courseId
 
         for (Department department: departmentList) {
-            if (department.getDepartmentName().equals(courseData.getSubjectName())) {
+            if (department.getName().equals(courseData.getSubjectName())) {
                 // Department already exists, add it to the courseList of the Department
                 department.addCourse(courseData);
                 departmentFound = true;

@@ -35,7 +35,7 @@ public class Controller {
     @GetMapping("/departments/{departmentName}/courses")
     public List<Course> getDepartment(@PathVariable("departmentName") String departmentName) {
         for (Department department : departmentList) {
-            if (department.getDepartmentName().trim().equals(departmentName)) {
+            if (department.getName().trim().equals(departmentName)) {
                 return department.getCourseList();
             }
         }
@@ -53,7 +53,7 @@ public class Controller {
             @PathVariable("catalogNumber") String catalogNumber) {
         boolean DepartmentFound = false;
         for (Department department : departmentList) {
-            if (department.getDepartmentName().trim().equals(departmentName)) {
+            if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
                     if (course.getCatalogNumber().trim().equals(catalogNumber)) {
@@ -78,7 +78,7 @@ public class Controller {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
-            if (department.getDepartmentName().trim().equals(departmentName)) {
+            if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
                     if (course.getCatalogNumber().trim().equals(catalogNumber)) {
@@ -115,7 +115,7 @@ public class Controller {
         boolean CourseFound = false;
         boolean CourseOfferingsFound = false;
         for (Department department : departmentList) {
-            if (department.getDepartmentName().trim().equals(departmentName)) {
+            if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
                     if (course.getCatalogNumber().trim().equals(catalogNumber)) {
