@@ -70,11 +70,11 @@ public class Controller {
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
     // Comment: Works!!
-    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingId}/sections")
+    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingsId}/sections")
     public List<Section> getSection(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("catalogNumber") String catalogNumber,
-            @PathVariable("offeringId") long courseOfferingId) {
+            @PathVariable("courseOfferingsId") long courseOfferingId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
@@ -103,8 +103,51 @@ public class Controller {
         }
     }
 
-    // Get One Specific Section @GetMapping | @GetMapping
-    // Comment:
+    // Department -> Course -> CourseOfferings -> SectionList -> Section| @GetMapping
+    // Comment: Working on it
+    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingsId}/sections/{sectionId}")
+    public Section getSection(
+            @PathVariable("departmentName") String departmentName,
+            @PathVariable("catalogNumber") String catalogNumber,
+            @PathVariable("courseOfferingsId") long courseOfferingId,
+            @PathVariable("sectionId") long sectionId) {
+        boolean DepartmentFound = false;
+        boolean CourseFound = false;
+        boolean CourseOfferingsFound = false;
+        for (Department department : departmentList) {
+            if (department.getDepartmentName().trim().equals(departmentName)) {
+                DepartmentFound = true;
+                for (Course course : department.getCourseList()) {
+                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
+                        CourseFound = true;
+                    }
+                    for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
+                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
+                            CourseOfferingsFound = true;
+                            for(Section section : courseOfferings.getSectionList()) {
+                                if(section.getSectionId() == sectionId) {
+                                    return section;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (DepartmentFound == false) {
+            throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
+        }
+        else if (CourseFound == false) {
+            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
+        }
+        else if(CourseOfferingsFound == false){
+            throw new CourseOfferingsNotFound("Department: " + departmentName + "Course: " + catalogNumber + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
+        }
+        else {
+            throw new SectionNotFound("Section Not Found.");
+        }
+    }
+
 
 
     // HELLO ALEX IF U SEE THIS ANYTHING BELOW THIS IS FUNCTION THAT WE MAY NEED TO MAKE? I just need to rewatch the video or if u know u can get rid of it as needed.
