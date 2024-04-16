@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import Model.Exception.CourseNotFound;
+import Model.Exception.CourseOfferingsNotFound;
 import Model.Exception.DepartmentNotFound;
 import Model.Exception.SectionNotFound;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class Controller {
     public List<Department> getDepartmentList() {
         return departmentList;
     }
-    // Get One Specific Department | @GetMapping
+    // Department -> Get CourseList | @GetMapping
     // Comment: Works!
     @GetMapping("/departments/{departmentName}/courses")
     public List<Course> getDepartment(@PathVariable("departmentName") String departmentName) {
@@ -44,7 +45,7 @@ public class Controller {
     // Get Total Amount of Students in that department each Semester | @GetMapping
     // Comment: I need to watch the video again as I am not sure if this is going to be used in the graph or not.
 
-    // Get List of Course | @GetMapping
+    // Department -> Course -> Get CourseOfferingsList | @GetMapping
     // Comment: Works!
     @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings")
     public List<CourseOfferings> getCourseOfferings(
@@ -64,15 +65,15 @@ public class Controller {
         if (DepartmentFound == false) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
-        throw new CourseNotFound("Department: " + departmentName + "Course: " + catalogNumber + " was not retrieved.");
+        throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
     }
 
-    // Get One Specific Course | @GetMapping
-    // Comment:
-    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringId}/sections")
+    // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
+    // Comment: Works!!
+    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingId}/sections")
     public List<Section> getSection(
             @PathVariable("departmentName") String departmentName,
-            @PathVariable("courseId") long courseId,
+            @PathVariable("catalogNumber") String catalogNumber,
             @PathVariable("offeringId") long courseOfferingId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
@@ -80,7 +81,7 @@ public class Controller {
             if (department.getDepartmentName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
-                    if (course.getCourseId() == courseId) {
+                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
                         CourseFound = true;
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
@@ -95,25 +96,16 @@ public class Controller {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
         else if (CourseFound == false) {
-            throw new CourseNotFound("Department: " + departmentName + "Course: " + courseId + " was not retrieved.");
+            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
         }
         else {
-            return null;
+            throw new CourseOfferingsNotFound("Department: " + departmentName + "Course: " + catalogNumber + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
         }
     }
 
-    // Get List of Course Offering | @GetMapping
-    // Comment:
-
-    // Get One Specific Course Offering | @GetMapping
-    // Comment:
-
-
-    // Get List of Sections @GetMapping | @GetMapping
-    // Comment:
-
     // Get One Specific Section @GetMapping | @GetMapping
     // Comment:
+
 
     // HELLO ALEX IF U SEE THIS ANYTHING BELOW THIS IS FUNCTION THAT WE MAY NEED TO MAKE? I just need to rewatch the video or if u know u can get rid of it as needed.
     // AddCourseOffering??
