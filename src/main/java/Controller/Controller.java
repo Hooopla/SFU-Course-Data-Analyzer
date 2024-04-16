@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import Model.Exception.CourseNotFound;
 import Model.Exception.DepartmentNotFound;
+import Model.Exception.SectionNotFound;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,16 +46,16 @@ public class Controller {
 
     // Get List of Course | @GetMapping
     // Comment: Works!
-    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings")
+    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings")
     public List<CourseOfferings> getCourseOfferings(
             @PathVariable("departmentName") String departmentName,
-            @PathVariable("courseId") long courseId) {
+            @PathVariable("catalogNumber") String catalogNumber) {
         boolean DepartmentFound = false;
         for (Department department : departmentList) {
             if (department.getDepartmentName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
-                    if (course.getCourseId() == courseId) {
+                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
                         return course.getCourseOfferingsList();
                     }
                 }
@@ -63,12 +64,12 @@ public class Controller {
         if (DepartmentFound == false) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
-        throw new CourseNotFound("Department: " + departmentName + "Course: " + courseId + " was not retrieved.");
+        throw new CourseNotFound("Department: " + departmentName + "Course: " + catalogNumber + " was not retrieved.");
     }
 
     // Get One Specific Course | @GetMapping
     // Comment:
-    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringId}/Sections")
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringId}/sections")
     public List<Section> getSection(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("courseId") long courseId,
@@ -90,7 +91,15 @@ public class Controller {
                 }
             }
         }
-        return null;
+        if (DepartmentFound == false) {
+            throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
+        }
+        else if (CourseFound == false) {
+            throw new CourseNotFound("Department: " + departmentName + "Course: " + courseId + " was not retrieved.");
+        }
+        else {
+            return null;
+        }
     }
 
     // Get List of Course Offering | @GetMapping
