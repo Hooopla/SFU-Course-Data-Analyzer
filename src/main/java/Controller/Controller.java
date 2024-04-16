@@ -68,6 +68,30 @@ public class Controller {
 
     // Get One Specific Course | @GetMapping
     // Comment:
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringId}/Sections")
+    public List<Section> getSection(
+            @PathVariable("departmentName") String departmentName,
+            @PathVariable("courseId") long courseId,
+            @PathVariable("offeringId") long courseOfferingId) {
+        boolean DepartmentFound = false;
+        boolean CourseFound = false;
+        for (Department department : departmentList) {
+            if (department.getDepartmentName().trim().equals(departmentName)) {
+                DepartmentFound = true;
+                for (Course course : department.getCourseList()) {
+                    if (course.getCourseId() == courseId) {
+                        CourseFound = true;
+                    }
+                    for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
+                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
+                            return courseOfferings.getSectionList();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     // Get List of Course Offering | @GetMapping
     // Comment:
