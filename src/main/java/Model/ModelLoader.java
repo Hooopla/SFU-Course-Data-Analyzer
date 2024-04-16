@@ -3,6 +3,7 @@ package Model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class ModelLoader {
 
             while ((line = br.readLine()) != null) {
                 values = line.split(",");
+                values = Arrays.stream(values).map(String::trim).toArray(String[]::new);
                 CourseData data = createCourseData();
 
                 addToDepartment(departmentList, data);
