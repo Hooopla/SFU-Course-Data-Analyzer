@@ -153,8 +153,6 @@ public class Controller {
                 bodyCourseId
         );
 
-//        Course course = getCourseFromDepartmentCourseId(bodyDep, bodyCourseId);
-//        course.addObserver(watcher);
         for (Department department: departmentList) {
             if (department.getName().equals(bodyDep)) {
                 for (Course course: department.getCourseList()) {

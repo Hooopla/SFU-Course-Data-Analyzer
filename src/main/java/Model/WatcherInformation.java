@@ -20,9 +20,8 @@ public class WatcherInformation implements Observer {
     // Log the new event
     @Override
     public void changedState(String deptId, long courseId) {
-        System.out.println("this " + deptId + " " + courseId);
         if (this.deptId.equals(deptId) && this.courseId == courseId) {
-            events.add(LocalTime.now() + " Added section ");
+            events.add(LocalTime.now() + " Added section for " + courseId);
         }
     }
 

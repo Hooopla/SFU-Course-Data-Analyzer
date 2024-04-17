@@ -98,8 +98,6 @@ public class Course implements Subject {
 
     @Override
     public void notifyObservers(String deptId, long courseId) {
-        System.out.println("Notifying with deptId: " + deptId + " courseId: " + courseId);
-        System.out.println("Observer size " + observerList.size());
         observerList.forEach(obs -> obs.changedState(deptId, courseId));
     }
 
