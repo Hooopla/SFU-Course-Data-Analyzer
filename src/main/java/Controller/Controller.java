@@ -69,26 +69,25 @@ public class Controller {
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
     // Comment: Works!!
-    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{courseOfferingsId}")
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringsId}")
     public List<Section> getSections(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("courseId") long courseId,
-            @PathVariable("courseOfferingsId") long offeringId) {
+            @PathVariable("offeringsId") String offeringId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
+        long newOfferingId = Long.parseLong(offeringId);
+        System.out.println("OfferingId: " + offeringId);
+        System.out.println("newOfferingId: " + newOfferingId);
         for (Department department : departmentList) {
-            System.out.println("uhmm");
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
-                System.out.println("yoo 1");
                 for (Course course : department.getCourseList()) {
                     if (course.getCourseId() == courseId) {
                         CourseFound = true;
-                        System.out.println("yoo 2");
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingId() == offeringId) {
-                            System.out.println("yooo 3");
+                        if (true) {
                             return courseOfferings.getSectionList();
                         }
                     }
