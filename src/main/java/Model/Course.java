@@ -13,13 +13,13 @@ import java.util.Objects;
  */
 
 public class Course implements Subject{
-    private long courseId; // <-- Unique quantifier code for this Course
+    private String courseId; // <-- Unique quantifier code for this Course
     private String catalogNumber;
     private List<CourseOfferings> courseOfferingsList;
     private List<Observer> observerList;
 
     public Course(long courseId, CourseData data) {
-        this.courseId = courseId;
+        this.courseId = catalogNumber;
         this.catalogNumber = data.getCatalogNumber();
         this.courseOfferingsList = new ArrayList<>();
         this.observerList = new ArrayList<>();
