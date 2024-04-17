@@ -104,7 +104,7 @@ public class Controller {
         if (!CourseFound) {
             throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved.");
         }
-        throw new CourseOfferingsNotFound("Department: " + departmentName + "CourseId: " + courseId + "CourseOfferings: " + offeringId + " was not retrieved.");
+        throw new CourseOfferingsNotFound("Department: " + departmentName + " CourseId: " + courseId + " CourseOfferings: " + offeringId + " was not retrieved.");
     }
 
     @PostMapping("addoffering")
