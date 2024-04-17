@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.DTO.APICourseOfferingDTO;
 import Model.DTO.WatcherDTO;
 import Model.Exception.CourseNotFound;
 import Model.Exception.CourseOfferingsNotFound;
@@ -17,7 +18,6 @@ public class Controller {
     private List<Department> departmentList = new ArrayList<>();
     private Authors authors = new Authors();
     ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
-    private List<WatcherInformation> watchers = new ArrayList<WatcherInformation>();
     List<WatcherDTO> watcherDTOList = new ArrayList<>();
 
     // About Us Page | @GetMapping
@@ -113,37 +113,58 @@ public class Controller {
     // AddCourse??
     // AddSection??
 
+    @PostMapping("addoffering")
+    private void addCourseOffering(@RequestBody APICourseOfferingDTO dto) {
+        CourseData data = dto.getCourseData();
+
+        for (Department department: departmentList) {
+            if (department.getName().equals(dto.getSubjectName())) {
+                department.addCourse(data);
+            }
+        }
+    }
+
     @GetMapping("watchers")
     private List<WatcherDTO> getWatchers() {
         watcherDTOList.clear();
-        Department departmentId = departmentList.get(0); // Bad practice, will not give an error. Try to fix.
 
-        for (WatcherInformation watcher: watchers) {
-            for (Department department: departmentList) {
-                if (department.getName().equals(watcher.getDeptId())) {
-                    departmentId = department;
-                    break;
+        for (Department department: departmentList) {
+            for (Course course: department.getCourseList()) {
+                for (Observer watcher: course.getObserverList()) {
+                    WatcherDTO dto = new WatcherDTO(
+                            watcherDTOList.size() + 1,
+                            department,
+                            course,
+                            watcher.getEvents()
+                    );
+                    watcherDTOList.add(dto);
                 }
             }
-
-            WatcherDTO dto = new WatcherDTO(
-                    watcherDTOList.size() + 1,
-                    departmentId,
-                    departmentId.getCourseById(watcher.getCourseId()),
-                    watcher.getEvents()
-            );
-            watcherDTOList.add(dto);
         }
         return watcherDTOList;
     }
 
     @PostMapping("watchers")
     private void createWatcher(@RequestBody Map<String, Object> body) {
+        String bodyDep = (String) body.get("deptId");
+        long bodyCourseId = Long.parseLong(body.get("courseId").toString());
         WatcherInformation watcher = new WatcherInformation(
-                (String) body.get("deptId"),
-                Long.parseLong(body.get("courseId").toString())
+                bodyDep,
+                bodyCourseId
         );
-        watchers.add(watcher);
+
+//        Course course = getCourseFromDepartmentCourseId(bodyDep, bodyCourseId);
+//        course.addObserver(watcher);
+        for (Department department: departmentList) {
+            if (department.getName().equals(bodyDep)) {
+                for (Course course: department.getCourseList()) {
+                    if (course.getCourseId() == bodyCourseId) {
+                        System.out.println("Adding Observer for " + course.getCourseId() + " " + bodyCourseId);
+                        course.addObserver(watcher);
+                    }
+                }
+            }
+        }
     }
 
     // Get Dump Model | @GetMapping
@@ -151,5 +172,18 @@ public class Controller {
     @GetMapping("dump-model")
     private void printToConsole() {
         DumpWriter.dumpModel(departmentList);
+    }
+
+    private Course getCourseFromDepartmentCourseId(String departmentName, long courseId) {
+        for (Department department: departmentList) {
+            if (department.getName().equals(departmentName)) {
+                for (Course course: department.getCourseList()) {
+                    if (course.getCourseId() == courseId) {
+                        return course;
+                    }
+                }
+            }
+        }
+        throw new CourseNotFound();
     }
 }

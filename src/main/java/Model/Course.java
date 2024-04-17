@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  */
 
-public class Course implements Subject{
+public class Course implements Subject {
     private long courseId; // <-- Unique quantifier code for this Course
     private String catalogNumber;
     private List<CourseOfferings> courseOfferingsList;
@@ -35,6 +35,7 @@ public class Course implements Subject{
      */
     public void addCourseOffering(CourseData courseData) {
         boolean courseExists = false;
+        notifyObservers(courseData.getSubjectName(), courseId);
 
         for (CourseOfferings currentOffering : courseOfferingsList) {
             if (currentOffering.getSemesterCode() == courseData.getSemesterId() && Objects.equals(currentOffering.getInstructors(), courseData.getInstructor())) {
@@ -86,18 +87,19 @@ public class Course implements Subject{
     }
 
     @Override
-    public void addObserver(Observer observer) {
+    public void addObserver(WatcherInformation observer) {
         observerList.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(WatcherInformation observer) {
         observerList.remove(observer);
-
     }
 
     @Override
     public void notifyObservers(String deptId, long courseId) {
+        System.out.println("Notifying with deptId: " + deptId + " courseId: " + courseId);
+        System.out.println("Observer size " + observerList.size());
         observerList.forEach(obs -> obs.changedState(deptId, courseId));
     }
 
