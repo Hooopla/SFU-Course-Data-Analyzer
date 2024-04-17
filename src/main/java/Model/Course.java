@@ -97,8 +97,8 @@ public class Course implements Subject{
     }
 
     @Override
-    public void notifyObservers(CourseOfferings offerings, CourseData data) {
-        observerList.forEach(obs -> obs.changedState(offerings, data));
+    public void notifyObservers(String deptId, long courseId) {
+        observerList.forEach(obs -> obs.changedState(deptId, courseId));
     }
 
     public long getCourseId() {

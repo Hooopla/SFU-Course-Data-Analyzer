@@ -6,5 +6,5 @@ package Model;
 public interface Subject {
     void addObserver(Observer observer);
     void removeObserver(Observer observer);
-    void notifyObservers(CourseOfferings offerings, CourseData data);
+    void notifyObservers(String deptId, long courseId);
 }

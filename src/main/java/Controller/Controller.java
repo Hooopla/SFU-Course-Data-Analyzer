@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.DTO.WatcherDTO;
 import Model.Exception.CourseNotFound;
 import Model.Exception.CourseOfferingsNotFound;
 import Model.Exception.DepartmentNotFound;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -15,6 +17,8 @@ public class Controller {
     private List<Department> departmentList = new ArrayList<>();
     private Authors authors = new Authors();
     ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
+    private List<WatcherInformation> watchers = new ArrayList<WatcherInformation>();
+    List<WatcherDTO> watcherDTOList = new ArrayList<>();
 
     // About Us Page | @GetMapping
     @GetMapping("/about")
@@ -69,25 +73,26 @@ public class Controller {
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
     // Comment: Works!!
-    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{offeringsId}")
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{courseOfferingsId}")
     public List<Section> getSections(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("courseId") long courseId,
-            @PathVariable("offeringsId") String offeringId) {
+            @PathVariable("courseOfferingsId") long offeringId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
-        long newOfferingId = Long.parseLong(offeringId);
-        System.out.println("OfferingId: " + offeringId);
-        System.out.println("newOfferingId: " + newOfferingId);
         for (Department department : departmentList) {
+            System.out.println("uhmm");
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
+                System.out.println("yoo 1");
                 for (Course course : department.getCourseList()) {
                     if (course.getCourseId() == courseId) {
                         CourseFound = true;
+                        System.out.println("yoo 2");
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (true) {
+                        if (courseOfferings.getCourseOfferingId() == offeringId) {
+                            System.out.println("yooo 3");
                             return courseOfferings.getSectionList();
                         }
                     }
@@ -107,6 +112,39 @@ public class Controller {
     // AddCourseOffering??
     // AddCourse??
     // AddSection??
+
+    @GetMapping("watchers")
+    private List<WatcherDTO> getWatchers() {
+        watcherDTOList.clear();
+        Department departmentId = departmentList.get(0); // Bad practice, will not give an error. Try to fix.
+
+        for (WatcherInformation watcher: watchers) {
+            for (Department department: departmentList) {
+                if (department.getName().equals(watcher.getDeptId())) {
+                    departmentId = department;
+                    break;
+                }
+            }
+
+            WatcherDTO dto = new WatcherDTO(
+                    watcherDTOList.size() + 1,
+                    departmentId,
+                    departmentId.getCourseById(watcher.getCourseId()),
+                    watcher.getEvents()
+            );
+            watcherDTOList.add(dto);
+        }
+        return watcherDTOList;
+    }
+
+    @PostMapping("watchers")
+    private void createWatcher(@RequestBody Map<String, Object> body) {
+        WatcherInformation watcher = new WatcherInformation(
+                (String) body.get("deptId"),
+                Long.parseLong(body.get("courseId").toString())
+        );
+        watchers.add(watcher);
+    }
 
     // Get Dump Model | @GetMapping
     // Comment: Works Great!

@@ -44,6 +44,16 @@ public class Department {
         courseList.sort(Comparator.comparing(course -> course.getCatalogNumber()));
     }
 
+    public Course getCourseById(long courseId) {
+        for (Course course: courseList) {
+            if (course.getCourseId() == courseId) {
+                return course;
+            }
+        }
+
+        throw new IllegalStateException("Could not find matching courseId, searching for: " + courseId);
+    }
+
     public String getName() {
         return name;
     }
