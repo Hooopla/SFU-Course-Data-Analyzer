@@ -52,10 +52,6 @@ public class Course implements Subject {
             courseOfferingsList.add(newOfferedCourse);
             sortCourseOfferings();
         }
-        // Create an CourseOffering object for the observer
-        //CourseOfferings newCourseOfferingsObserver = new CourseOfferings(courseData);
-        // NOTIFY OBSERVERS HERE
-        //notifyObservers(newCourseOfferingsObserver, courseData);
     }
 
     public CourseOfferings findCourseOfferings(CourseData courseData) {

@@ -6,6 +6,7 @@ import Model.DTO.WatcherDTO;
 import Model.Exception.CourseNotFound;
 import Model.Exception.CourseOfferingsNotFound;
 import Model.Exception.DepartmentNotFound;
+import Model.Exception.SectionNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class Controller {
-    private List<Department> departmentList = new ArrayList<>();
-    private Authors authors = new Authors();
+    private final List<Department> departmentList = new ArrayList<>();
+    private final Authors authors = new Authors();
     ModelLoader loader = new ModelLoader("data/course_data_2018.csv", departmentList);
     List<WatcherDTO> watcherDTOList = new ArrayList<>();
 
@@ -67,7 +68,7 @@ public class Controller {
                 }
             }
         }
-        if (DepartmentFound == false) {
+        if (!DepartmentFound) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
         throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved. ");
@@ -97,25 +98,19 @@ public class Controller {
                 }
             }
         }
-        if (DepartmentFound == false) {
+        if (!DepartmentFound) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
-        if (CourseFound == false) {
+        if (!CourseFound) {
             throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved.");
         }
         throw new CourseOfferingsNotFound("Department: " + departmentName + "CourseId: " + courseId + "CourseOfferings: " + offeringId + " was not retrieved.");
     }
 
-    // HELLO ALEX IF U SEE THIS ANYTHING BELOW THIS IS FUNCTION THAT WE MAY NEED TO MAKE? I just need to rewatch the video or if u know u can get rid of it as needed.
-    // AddCourseOffering??
-    // AddCourse??
-    // AddSection??
-
     @PostMapping("addoffering")
     @ResponseStatus(HttpStatus.ACCEPTED)
     private void addCourseOffering(@RequestBody APICourseOfferingDTO dto) {
         CourseData data = dto.getCourseData();
-
         for (Department department: departmentList) {
             if (department.getName().equals(dto.getSubjectName())) {
                 department.addCourse(data);
@@ -185,5 +180,30 @@ public class Controller {
         throw new CourseNotFound();
     }
 
-    //
+    // Exception Handlers
+    @ExceptionHandler(DepartmentNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String DepartmentNotFoundHandler(DepartmentNotFound error) {
+        return error.getMessage();
+    }
+
+    @ExceptionHandler(CourseNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String CourseNotFoundHandler(CourseNotFound error) {
+        return error.getMessage();
+    }
+
+    @ExceptionHandler(CourseOfferingsNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String CourseOfferingsNotFoundHandler(CourseOfferingsNotFound error) {
+        return error.getMessage();
+    }
+
+    @ExceptionHandler(SectionNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String SectionNotFoundHandler(SectionNotFound error) {
+        return error.getMessage();
+    }
+
+
 }
