@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class CourseOfferings {
-    private long courseOfferingsId;
+    private String courseOfferingsId;
     private String location;
     private String instructors;
     private String term;
@@ -21,25 +21,13 @@ public class CourseOfferings {
     private List<Section> sectionList;
 
     // Constructors
-    public CourseOfferings(long courseOfferingsId, CourseData data) {
+    public CourseOfferings(String courseOfferingsId, CourseData data) {
         this.courseOfferingsId = courseOfferingsId;
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
         this.term = calculateTerm(data.getSemesterId());
         this.semesterId = data.getSemesterId();
         this.year = calculateYear(data.getSemesterId());
-        this.sectionList = new ArrayList<>();
-    }
-
-    // For Observer Constructor
-    // 0 - Will be designated for Courses that are being watched by an observer.
-    public CourseOfferings(CourseData courseData) {
-        this.courseOfferingsId = 0;
-        //this.course = new SpecificCourseOffering(courseData.getCatalogNumber(), courseOfferingsId);
-        this.location = courseData.getLocation();
-        this.instructors = courseData.getInstructor();
-        this.term = calculateTerm(courseData.getSemesterId());
-        this.year = calculateYear(courseData.getSemesterId());
         this.sectionList = new ArrayList<>();
     }
 
@@ -92,7 +80,7 @@ public class CourseOfferings {
     }
 
 
-    public long getCourseOfferingsId() {
+    public String getCourseOfferingsId() {
         return courseOfferingsId;
     }
 

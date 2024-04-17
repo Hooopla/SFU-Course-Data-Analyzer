@@ -65,7 +65,7 @@ public class Controller {
         if (DepartmentFound == false) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
-        throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
+        throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved. BLEPP");
     }
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
@@ -74,7 +74,7 @@ public class Controller {
     public List<Section> getSection(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("catalogNumber") String catalogNumber,
-            @PathVariable("courseOfferingsId") long courseOfferingId) {
+            @PathVariable("courseOfferingsId") String courseOfferingId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
@@ -85,7 +85,7 @@ public class Controller {
                         CourseFound = true;
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
+                        if (courseOfferings.getCourseOfferingsId().trim().equals(courseOfferingId)) {
                             return courseOfferings.getSectionList();
                         }
                     }
@@ -96,7 +96,7 @@ public class Controller {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
         else if (CourseFound == false) {
-            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
+            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved. here");
         }
         else {
             throw new CourseOfferingsNotFound("Department: " + departmentName + "Course: " + catalogNumber + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
@@ -109,7 +109,7 @@ public class Controller {
     public Section getSection(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("catalogNumber") String catalogNumber,
-            @PathVariable("courseOfferingsId") long courseOfferingId,
+            @PathVariable("courseOfferingsId") String courseOfferingId,
             @PathVariable("sectionId") long sectionId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
@@ -122,7 +122,7 @@ public class Controller {
                         CourseFound = true;
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
+                        if (courseOfferings.getCourseOfferingsId().trim().equals(courseOfferingId))  {
                             CourseOfferingsFound = true;
                             for(Section section : courseOfferings.getSectionList()) {
                                 if(section.getSectionId() == sectionId) {

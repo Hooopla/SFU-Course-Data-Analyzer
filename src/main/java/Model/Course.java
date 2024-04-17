@@ -45,16 +45,16 @@ public class Course implements Subject{
         }
 
         if (!courseExists) {
-            int id = courseOfferingsList.size() + 1;
+            String id = catalogNumber;
             CourseOfferings newOfferedCourse = new CourseOfferings(id, courseData);
             newOfferedCourse.addSection(courseData);
             courseOfferingsList.add(newOfferedCourse);
             sortCourseOfferings();
         }
         // Create an CourseOffering object for the observer
-        CourseOfferings newCourseOfferingsObserver = new CourseOfferings(courseData);
+        //CourseOfferings newCourseOfferingsObserver = new CourseOfferings(courseData);
         // NOTIFY OBSERVERS HERE
-        notifyObservers(newCourseOfferingsObserver, courseData);
+        //notifyObservers(newCourseOfferingsObserver, courseData);
     }
 
     public CourseOfferings findCourseOfferings(CourseData courseData) {
