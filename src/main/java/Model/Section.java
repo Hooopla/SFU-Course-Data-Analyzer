@@ -7,13 +7,13 @@ package Model;
 public class Section {
     private long sectionId;
     private String type;
-    private int enrollmentMax;
+    private int enrollmentCap;
     private int enrollmentTotal;
 
     public Section(long sectionId, CourseData data) {
         this.sectionId = sectionId;
         this.type = data.getComponent();
-        this.enrollmentMax = data.getEnrollmentCap();
+        this.enrollmentCap = data.getEnrollmentCap();
         this.enrollmentTotal = data.getEnrollmentTotal();
     }
 
@@ -24,8 +24,8 @@ public class Section {
         return type;
     }
 
-    public int getEnrollmentMax() {
-        return enrollmentMax;
+    public int getEnrollmentCap() {
+        return enrollmentCap;
     }
 
     public int getEnrollmentTotal() {

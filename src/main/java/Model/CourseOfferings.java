@@ -9,21 +9,21 @@ import java.util.List;
  */
 
 public class CourseOfferings {
-    private long offeringId;
+    private long courseOfferingId;
     private String location;
     private String instructors;
     private String term;
-    private int semesterId;
+    private int semesterCode;
     private int year;
     private List<Section> sectionList;
 
     // Constructors
-    public CourseOfferings(long offeringId, CourseData data) {
-        this.offeringId = offeringId;
+    public CourseOfferings(long courseOfferingId, CourseData data) {
+        this.courseOfferingId = courseOfferingId;
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
         this.term = calculateTerm(data.getSemesterId());
-        this.semesterId = data.getSemesterId();
+        this.semesterCode = data.getSemesterId();
         this.year = calculateYear(data.getSemesterId());
         this.sectionList = new ArrayList<>();
     }
@@ -77,8 +77,8 @@ public class CourseOfferings {
     }
 
 
-    public long getOfferingId() {
-        return offeringId;
+    public long getCourseOfferingId() {
+        return courseOfferingId;
     }
 
     public String getLocation() {
@@ -93,8 +93,8 @@ public class CourseOfferings {
         return term;
     }
 
-    public int getSemesterId() {
-        return semesterId;
+    public int getSemesterCode() {
+        return semesterCode;
     }
 
     public int getYear() {

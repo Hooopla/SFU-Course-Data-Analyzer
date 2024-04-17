@@ -87,7 +87,7 @@ public class Controller {
                         System.out.println("yoo 2");
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getOfferingId() == offeringId) {
+                        if (courseOfferings.getCourseOfferingId() == offeringId) {
                             System.out.println("yooo 3");
                             return courseOfferings.getSectionList();
                         }

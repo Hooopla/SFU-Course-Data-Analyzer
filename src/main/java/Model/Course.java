@@ -37,7 +37,7 @@ public class Course implements Subject{
         boolean courseExists = false;
 
         for (CourseOfferings currentOffering : courseOfferingsList) {
-            if (currentOffering.getSemesterId() == courseData.getSemesterId() && Objects.equals(currentOffering.getInstructors(), courseData.getInstructor())) {
+            if (currentOffering.getSemesterCode() == courseData.getSemesterId() && Objects.equals(currentOffering.getInstructors(), courseData.getInstructor())) {
                 courseExists = true;
                 currentOffering.addSection(courseData);
                 break;
@@ -59,7 +59,7 @@ public class Course implements Subject{
 
     public CourseOfferings findCourseOfferings(CourseData courseData) {
         for (CourseOfferings currentCourseOfferings : courseOfferingsList) {
-            if (currentCourseOfferings.getSemesterId() == courseData.getSemesterId()) {
+            if (currentCourseOfferings.getSemesterCode() == courseData.getSemesterId()) {
                 return currentCourseOfferings;
             }
         }
@@ -70,14 +70,14 @@ public class Course implements Subject{
     }
 
     private void sortCourseOfferings() {
-        courseOfferingsList.sort(Comparator.comparing(o -> o.getSemesterId() + o.getLocation()));
+        courseOfferingsList.sort(Comparator.comparing(o -> o.getSemesterCode() + o.getLocation()));
     }
 
     public int getTotalEnrollmentInSemester(int semesterId) {
         int totalEnrollmentInSemester = 0;
         for (CourseOfferings currentCourseOfferings : courseOfferingsList) {
-            if (currentCourseOfferings.getSemesterId() == semesterId) {
-                if (currentCourseOfferings.getSemesterId() == semesterId) {
+            if (currentCourseOfferings.getSemesterCode() == semesterId) {
+                if (currentCourseOfferings.getSemesterCode() == semesterId) {
                     totalEnrollmentInSemester += currentCourseOfferings.getTotalEnrollments();
                 }
             }
