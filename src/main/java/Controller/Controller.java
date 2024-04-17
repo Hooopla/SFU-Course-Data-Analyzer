@@ -81,18 +81,14 @@ public class Controller {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
-            System.out.println("uhmm");
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
-                System.out.println("yoo 1");
                 for (Course course : department.getCourseList()) {
                     if (course.getCourseId() == courseId) {
                         CourseFound = true;
-                        System.out.println("yoo 2");
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
                         if (courseOfferings.getCourseOfferingId() == offeringId) {
-                            System.out.println("yooo 3");
                             return courseOfferings.getSectionList();
                         }
                     }
