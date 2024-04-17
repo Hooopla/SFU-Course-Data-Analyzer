@@ -47,16 +47,16 @@ public class Controller {
 
     // Department -> Course -> Get CourseOfferingsList | @GetMapping
     // Comment: Works!
-    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings")
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings")
     public List<CourseOfferings> getCourseOfferings(
             @PathVariable("departmentName") String departmentName,
-            @PathVariable("catalogNumber") String catalogNumber) {
+            @PathVariable("catalogNumber") long courseId) {
         boolean DepartmentFound = false;
         for (Department department : departmentList) {
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
-                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
+                    if (course.getCourseId() == courseId) {
                         return course.getCourseOfferingsList();
                     }
                 }
@@ -65,7 +65,7 @@ public class Controller {
         if (DepartmentFound == false) {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
-        throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved. BLEPP");
+        throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved. ");
     }
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
