@@ -6,6 +6,7 @@ import Model.DTO.WatcherDTO;
 import Model.Exception.CourseNotFound;
 import Model.Exception.CourseOfferingsNotFound;
 import Model.Exception.DepartmentNotFound;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Controller {
     List<WatcherDTO> watcherDTOList = new ArrayList<>();
 
     // About Us Page | @GetMapping
+
     @GetMapping("/about")
     public Authors getAboutPage() {
         return authors;
@@ -110,6 +112,7 @@ public class Controller {
     // AddSection??
 
     @PostMapping("addoffering")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     private void addCourseOffering(@RequestBody APICourseOfferingDTO dto) {
         CourseData data = dto.getCourseData();
 
@@ -141,6 +144,7 @@ public class Controller {
     }
 
     @PostMapping("watchers")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     private void createWatcher(@RequestBody Map<String, Object> body) {
         String bodyDep = (String) body.get("deptId");
         long bodyCourseId = Long.parseLong(body.get("courseId").toString());
@@ -180,4 +184,6 @@ public class Controller {
         }
         throw new CourseNotFound();
     }
+
+    //
 }
