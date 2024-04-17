@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Department {
     private String name;
+    private String deptId;
     private List<Course> courseList = new ArrayList<>();
 
     public Department(String departmentName) {
         this.name = departmentName;
+        this.deptId = departmentName;
     }
 
     // Pre-condition: The departmentName and courseData.subjectName are the same.
@@ -38,6 +40,10 @@ public class Department {
 
     public String getName() {
         return name;
+    }
+
+    public String getDeptId() {
+        return deptId;
     }
 
     public Course getCourse(int index) {
