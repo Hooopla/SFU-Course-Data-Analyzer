@@ -55,9 +55,36 @@ public class CourseOfferings {
         }
     }
 
+    public static String calculateTerm(CourseData data) {
+        String semesterCode = Integer.toString(data.getSemesterId());
+        int termCode = Integer.parseInt(String.valueOf(semesterCode.charAt(3)));
+        if (termCode == 1) {
+            return "Spring";
+        }
+        else if (termCode == 4) {
+            return "Summer";
+
+        }
+        else if (termCode == 7) {
+            return "Fall";
+        }
+        else {
+            return "ERROR TERM NOT FOUND";
+        }
+    }
+
     // Calculate which year
     private int calculateYear(int semesterId) {
         String semesterIdYear = String.valueOf(semesterId);
+        semesterIdYear = String.valueOf(
+                (2000 * Integer.parseInt(semesterIdYear.substring(0, 1)))
+                        + Integer.parseInt(semesterIdYear.substring(1, 3))
+        );
+        return Integer.parseInt(semesterIdYear);
+    }
+
+    public static int calculateYear(CourseData data) {
+        String semesterIdYear = String.valueOf(data.getSemesterId());
         semesterIdYear = String.valueOf(
                 (2000 * Integer.parseInt(semesterIdYear.substring(0, 1)))
                         + Integer.parseInt(semesterIdYear.substring(1, 3))

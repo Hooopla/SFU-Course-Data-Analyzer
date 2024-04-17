@@ -35,7 +35,7 @@ public class Course implements Subject {
      */
     public void addCourseOffering(CourseData courseData) {
         boolean courseExists = false;
-        notifyObservers(courseData.getSubjectName(), courseId);
+        notifyObservers(courseData.getSubjectName(), courseId, courseData);
 
         for (CourseOfferings currentOffering : courseOfferingsList) {
             if (currentOffering.getSemesterCode() == courseData.getSemesterId() && Objects.equals(currentOffering.getInstructors(), courseData.getInstructor())) {
@@ -97,8 +97,8 @@ public class Course implements Subject {
     }
 
     @Override
-    public void notifyObservers(String deptId, long courseId) {
-        observerList.forEach(obs -> obs.changedState(deptId, courseId));
+    public void notifyObservers(String deptId, long courseId, CourseData data) {
+        observerList.forEach(obs -> obs.changedState(deptId, courseId, data));
     }
 
     public long getCourseId() {

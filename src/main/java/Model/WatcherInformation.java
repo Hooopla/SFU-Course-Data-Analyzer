@@ -1,7 +1,10 @@
 package Model;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +22,23 @@ public class WatcherInformation implements Observer {
 
     // Log the new event
     @Override
-    public void changedState(String deptId, long courseId) {
+    public void changedState(String deptId, long courseId, CourseData data) {
         if (this.deptId.equals(deptId) && this.courseId == courseId) {
-            events.add(LocalTime.now() + " Added section for " + courseId);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(
+                    "EEE MMM dd HH:mm:ss z yyyy"
+            );
+            ZonedDateTime currentTime = ZonedDateTime.now();
+            String formattedDateTime = currentTime.format(dateTimeFormatter);
+            events.add(
+                    formattedDateTime +
+                    " Added section for " +
+                    data.getComponent() +
+                    " with enrollment (" +
+                    data.getEnrollmentTotal() +
+                    " / " + data.getEnrollmentCap() +
+                   ") to offering " + CourseOfferings.calculateTerm(data) +
+                   " " + CourseOfferings.calculateYear(data)
+            );
         }
     }
 
