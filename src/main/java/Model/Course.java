@@ -17,12 +17,14 @@ public class Course implements Subject {
     private String catalogNumber;
     private List<CourseOfferings> courseOfferingsList;
     private List<Observer> observerList;
+    private int semesterId;
 
     public Course(long courseId, CourseData data) {
         this.courseId = courseId;
         this.catalogNumber = data.getCatalogNumber();
         this.courseOfferingsList = new ArrayList<>();
         this.observerList = new ArrayList<>();
+        this.semesterId = data.getSemesterId();
     }
 
 
@@ -111,5 +113,19 @@ public class Course implements Subject {
 
     public List<Observer> getObserverList() {
         return observerList;
+    }
+
+    public int getTotalEnrollmentUsingSemId(int semesterId) {
+        int totalEnrollments = 0;
+        for(CourseOfferings courseOfferings : courseOfferingsList) {
+            if(courseOfferings.getSemesterCode() == semesterId) {
+                totalEnrollments = courseOfferings.getTotalEnrollments();
+            }
+        }
+        return totalEnrollments;
+    }
+
+    public int getSemesterId() {
+        return semesterId;
     }
 }

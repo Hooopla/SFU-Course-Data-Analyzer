@@ -160,6 +160,19 @@ public class Controller {
         }
     }
 
+    // Grapher Function | @GetMapping
+    // Comments: In progress
+    @GetMapping("/stats/students-per-semester")
+    public List<Grapher> getGraph(@RequestParam(value = "deptId") String deptId) {
+        for (Department department : departmentList) {
+            if(department.getName().trim().equals(deptId)) {
+                return department.getGraphData();
+            }
+        }
+        throw new DepartmentNotFound("Department: " + deptId + " was not retrieved.");
+    }
+
+
     // Get Dump Model | @GetMapping
     // Comment: Works Great!
     @GetMapping("dump-model")

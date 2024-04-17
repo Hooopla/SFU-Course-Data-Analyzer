@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Department {
     private String name;
@@ -68,5 +66,32 @@ public class Department {
 
     public List<Course> getCourseList() {
         return courseList;
+    }
+
+    public List<Grapher> getGraphData() {
+        List<Grapher> data = new ArrayList<>();
+        Set<Integer> semesterIdsSet = new HashSet<>();  // Using a Set to ensure uniqueness
+
+        for (Course course : courseList) {
+            semesterIdsSet.add(course.getSemesterId());
+        }
+        for (Integer semesterId : semesterIdsSet) {
+            int totalEnrollments = 0;
+            for (Course course : courseList) {
+                if (course.getSemesterId() == semesterId) {
+                    totalEnrollments += course.getTotalEnrollmentUsingSemId(semesterId);
+                }
+            }
+            Grapher newGraphDot = new Grapher(semesterId, totalEnrollments);
+            data.add(newGraphDot);
+        }
+        graphDataDump(data);
+        return data;
+    }
+
+    public void graphDataDump(List<Grapher> dataSet) {
+        for(Grapher data : dataSet) {
+            System.out.println(data);
+        }
     }
 }
