@@ -4,7 +4,6 @@ import Model.*;
 import Model.Exception.CourseNotFound;
 import Model.Exception.CourseOfferingsNotFound;
 import Model.Exception.DepartmentNotFound;
-import Model.Exception.SectionNotFound;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -74,10 +73,11 @@ public class Controller {
     public List<Section> getSections(
             @PathVariable("departmentName") String departmentName,
             @PathVariable("courseId") long courseId,
-            @PathVariable("courseOfferingsId") long courseOfferingId) {
+            @PathVariable("courseOfferingsId") long offeringId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
+            System.out.println("uhmm");
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 System.out.println("yoo 1");
@@ -87,7 +87,7 @@ public class Controller {
                         System.out.println("yoo 2");
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
+                        if (courseOfferings.getOfferingId() == offeringId) {
                             System.out.println("yooo 3");
                             return courseOfferings.getSectionList();
                         }
@@ -101,7 +101,7 @@ public class Controller {
         if (CourseFound == false) {
             throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved.");
         }
-        throw new CourseOfferingsNotFound("Department: " + departmentName + "CourseId: " + courseId + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
+        throw new CourseOfferingsNotFound("Department: " + departmentName + "CourseId: " + courseId + "CourseOfferings: " + offeringId + " was not retrieved.");
     }
 
     // HELLO ALEX IF U SEE THIS ANYTHING BELOW THIS IS FUNCTION THAT WE MAY NEED TO MAKE? I just need to rewatch the video or if u know u can get rid of it as needed.

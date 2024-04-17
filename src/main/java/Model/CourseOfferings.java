@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Exception.CourseOfferingsNotFound;
-import Model.Exception.SectionNotFound;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +9,7 @@ import java.util.List;
  */
 
 public class CourseOfferings {
-    private long courseOfferingsId;
+    private long offeringId;
     private String location;
     private String instructors;
     private String term;
@@ -21,8 +18,8 @@ public class CourseOfferings {
     private List<Section> sectionList;
 
     // Constructors
-    public CourseOfferings(long courseOfferingsId, CourseData data) {
-        this.courseOfferingsId = courseOfferingsId;
+    public CourseOfferings(long offeringId, CourseData data) {
+        this.offeringId = offeringId;
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
         this.term = calculateTerm(data.getSemesterId());
@@ -80,8 +77,8 @@ public class CourseOfferings {
     }
 
 
-    public long getCourseOfferingsId() {
-        return courseOfferingsId;
+    public long getOfferingId() {
+        return offeringId;
     }
 
     public String getLocation() {
