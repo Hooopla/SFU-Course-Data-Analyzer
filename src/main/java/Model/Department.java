@@ -1,5 +1,7 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 public class Department {
@@ -85,11 +87,19 @@ public class Department {
             Grapher newGraphDot = new Grapher(semesterId, totalEnrollments);
             data.add(newGraphDot);
         }
+
+        java.util.Collections.sort(data, new Comparator<Grapher>(){
+            @Override
+            public int compare(Grapher p1, Grapher p2) {
+                return p1.getSemesterCode() - p2.getSemesterCode();
+            }
+        });
         graphDataDump(data);
         return data;
     }
 
     public void graphDataDump(List<Grapher> dataSet) {
+        System.out.println("GRAPH DATA DUMP");
         for(Grapher data : dataSet) {
             System.out.println(data);
         }
