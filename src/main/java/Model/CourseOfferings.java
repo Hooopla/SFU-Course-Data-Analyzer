@@ -57,7 +57,12 @@ public class CourseOfferings {
 
     // Calculate which year
     private int calculateYear(int semesterId) {
-        return (int) (semesterId / Math.pow(10, Math.floor(Math.log10(semesterId)) - 1));
+        String semesterIdYear = String.valueOf(semesterId);
+        semesterIdYear = String.valueOf(
+                (2000 * Integer.parseInt(semesterIdYear.substring(0, 1)))
+                        + Integer.parseInt(semesterIdYear.substring(1, 3))
+        );
+        return Integer.parseInt(semesterIdYear);
     }
 
     // Get total enrollments
