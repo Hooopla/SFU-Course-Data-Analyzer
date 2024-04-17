@@ -50,7 +50,7 @@ public class Controller {
     @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings")
     public List<CourseOfferings> getCourseOfferings(
             @PathVariable("departmentName") String departmentName,
-            @PathVariable("catalogNumber") long courseId) {
+            @PathVariable("courseId") long courseId) {
         boolean DepartmentFound = false;
         for (Department department : departmentList) {
             if (department.getName().trim().equals(departmentName)) {
@@ -70,22 +70,22 @@ public class Controller {
 
     // Department -> Course -> CourseOfferings -> Get SectionList | @GetMapping
     // Comment: Works!!
-    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingsId}/sections")
+    @GetMapping("/departments/{departmentName}/courses/{courseId}/offerings/{courseOfferingsId}/sections")
     public List<Section> getSection(
             @PathVariable("departmentName") String departmentName,
-            @PathVariable("catalogNumber") String catalogNumber,
-            @PathVariable("courseOfferingsId") String courseOfferingId) {
+            @PathVariable("courseId") long courseId,
+            @PathVariable("courseOfferingsId") long courseOfferingId) {
         boolean DepartmentFound = false;
         boolean CourseFound = false;
         for (Department department : departmentList) {
             if (department.getName().trim().equals(departmentName)) {
                 DepartmentFound = true;
                 for (Course course : department.getCourseList()) {
-                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
+                    if (course.getCourseId() == courseId) {
                         CourseFound = true;
                     }
                     for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingsId().trim().equals(courseOfferingId)) {
+                        if (courseOfferings.getCourseOfferingsId() == courseOfferingId) {
                             return courseOfferings.getSectionList();
                         }
                     }
@@ -96,55 +96,10 @@ public class Controller {
             throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
         }
         else if (CourseFound == false) {
-            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved. here");
+            throw new CourseNotFound("Department: " + departmentName + " CourseId: " + courseId + " was not retrieved. here");
         }
         else {
-            throw new CourseOfferingsNotFound("Department: " + departmentName + "Course: " + catalogNumber + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
-        }
-    }
-
-    // Department -> Course -> CourseOfferings -> SectionList -> Section| @GetMapping
-    // Comment: Works!!
-    @GetMapping("/departments/{departmentName}/courses/{catalogNumber}/offerings/{courseOfferingsId}/sections/{sectionId}")
-    public Section getSection(
-            @PathVariable("departmentName") String departmentName,
-            @PathVariable("catalogNumber") String catalogNumber,
-            @PathVariable("courseOfferingsId") String courseOfferingId,
-            @PathVariable("sectionId") long sectionId) {
-        boolean DepartmentFound = false;
-        boolean CourseFound = false;
-        boolean CourseOfferingsFound = false;
-        for (Department department : departmentList) {
-            if (department.getName().trim().equals(departmentName)) {
-                DepartmentFound = true;
-                for (Course course : department.getCourseList()) {
-                    if (course.getCatalogNumber().trim().equals(catalogNumber)) {
-                        CourseFound = true;
-                    }
-                    for (CourseOfferings courseOfferings :  course.getCourseOfferingsList()) {
-                        if (courseOfferings.getCourseOfferingsId().trim().equals(courseOfferingId))  {
-                            CourseOfferingsFound = true;
-                            for(Section section : courseOfferings.getSectionList()) {
-                                if(section.getSectionId() == sectionId) {
-                                    return section;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (DepartmentFound == false) {
-            throw new DepartmentNotFound("Department: " + departmentName + " was not retrieved.");
-        }
-        else if (CourseFound == false) {
-            throw new CourseNotFound("Department: " + departmentName + " Course: " + catalogNumber + " was not retrieved.");
-        }
-        else if(CourseOfferingsFound == false){
-            throw new CourseOfferingsNotFound("Department: " + departmentName + "Course: " + catalogNumber + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
-        }
-        else {
-            throw new SectionNotFound("Section Not Found.");
+            throw new CourseOfferingsNotFound("Department: " + departmentName + "CourseId: " + courseId + "CourseOfferings: " + courseOfferingId + " was not retrieved.");
         }
     }
 

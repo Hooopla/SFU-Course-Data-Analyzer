@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class CourseOfferings {
-    private String courseOfferingsId;
+    private long courseOfferingsId;
     private String location;
     private String instructors;
     private String term;
@@ -21,7 +21,7 @@ public class CourseOfferings {
     private List<Section> sectionList;
 
     // Constructors
-    public CourseOfferings(String courseOfferingsId, CourseData data) {
+    public CourseOfferings(long courseOfferingsId, CourseData data) {
         this.courseOfferingsId = courseOfferingsId;
         this.location = data.getLocation();
         this.instructors = data.getInstructor();
@@ -80,7 +80,7 @@ public class CourseOfferings {
     }
 
 
-    public String getCourseOfferingsId() {
+    public long getCourseOfferingsId() {
         return courseOfferingsId;
     }
 
