@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Department {
@@ -35,7 +36,12 @@ public class Department {
             Course newCourse = new Course(id, courseData);
             newCourse.addCourseOffering(courseData);
             courseList.add(newCourse);
+            sortCourseListByCatalogNumber();
         }
+    }
+
+    public void sortCourseListByCatalogNumber() {
+        courseList.sort(Comparator.comparing(course -> course.getCatalogNumber()));
     }
 
     public String getName() {
