@@ -25,7 +25,9 @@ public class APICourseOfferingDTO {
         String component,
         int enrollmentTotal,
         String instructor
-    ) {
+    )
+
+    {
         this.semester = semester;
         this.subjectName = subjectName;
         this.catalogNumber = catalogNumber;
