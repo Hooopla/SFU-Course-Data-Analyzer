@@ -78,23 +78,24 @@ public class Department {
             semesterIdsSet.add(course.getSemesterId());
         }
         for (Integer semesterId : semesterIdsSet) {
-            int totalEnrollments = 0;
+            int totalCoursesTaken = 0;
             for (Course course : courseList) {
                 if (course.getSemesterId() == semesterId) {
-                    totalEnrollments += course.getTotalEnrollmentUsingSemId(semesterId);
+                    totalCoursesTaken += course.getTotalEnrollmentUsingSemId(semesterId);
                 }
             }
-            Grapher newGraphDot = new Grapher(semesterId, totalEnrollments);
+            Grapher newGraphDot = new Grapher(semesterId, totalCoursesTaken);
             data.add(newGraphDot);
         }
 
+        // Sorting Function and we want it from Semester Code lowest to highest!!!
         java.util.Collections.sort(data, new Comparator<Grapher>(){
             @Override
             public int compare(Grapher p1, Grapher p2) {
                 return p1.getSemesterCode() - p2.getSemesterCode();
             }
         });
-        graphDataDump(data);
+        //graphDataDump(data);
         return data;
     }
 
