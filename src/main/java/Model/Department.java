@@ -88,13 +88,14 @@ public class Department {
             data.add(newGraphDot);
         }
 
+        // Sorting Function and we want it from Semester Code lowest to highest!!!
         java.util.Collections.sort(data, new Comparator<Grapher>(){
             @Override
             public int compare(Grapher p1, Grapher p2) {
                 return p1.getSemesterCode() - p2.getSemesterCode();
             }
         });
-        graphDataDump(data);
+        //graphDataDump(data);
         return data;
     }
 
