@@ -2,26 +2,26 @@ package Model;
 
 public class Grapher {
     private int semesterCode;
-    private int seatsTaken;
+    private int totalCoursesTaken;
 
-    public Grapher(int semesterCode, int seatsTaken) {
+    public Grapher(int semesterCode, int totalCoursesTaken) {
         this.semesterCode = semesterCode;
-        this.seatsTaken = seatsTaken;
+        this.totalCoursesTaken = totalCoursesTaken;
     }
 
     public int getSemesterCode() {
         return semesterCode;
     };
 
-    public int getSeatsTaken() {
-        return seatsTaken;
+    public int getTotalCoursesTaken() {
+        return totalCoursesTaken;
     };
 
     @Override
     public String toString() {
         return "Grapher{" +
                 "semesterCode=" + semesterCode +
-                ", seatsTaken=" + seatsTaken +
+                ", seatsTaken=" + totalCoursesTaken +
                 '}';
     }
 }

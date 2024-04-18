@@ -78,13 +78,13 @@ public class Department {
             semesterIdsSet.add(course.getSemesterId());
         }
         for (Integer semesterId : semesterIdsSet) {
-            int totalEnrollments = 0;
+            int totalCoursesTaken = 0;
             for (Course course : courseList) {
                 if (course.getSemesterId() == semesterId) {
-                    totalEnrollments += course.getTotalEnrollmentUsingSemId(semesterId);
+                    totalCoursesTaken += course.getTotalEnrollmentUsingSemId(semesterId);
                 }
             }
-            Grapher newGraphDot = new Grapher(semesterId, totalEnrollments);
+            Grapher newGraphDot = new Grapher(semesterId, totalCoursesTaken);
             data.add(newGraphDot);
         }
 
