@@ -3,6 +3,7 @@ package Model.DTO;
 import Model.Course;
 import Model.CourseData;
 import Model.Department;
+import Model.Exception.IncompleteInput;
 
 import java.util.List;
 

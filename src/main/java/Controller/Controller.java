@@ -3,10 +3,7 @@ package Controller;
 import Model.*;
 import Model.DTO.APICourseOfferingDTO;
 import Model.DTO.WatcherDTO;
-import Model.Exception.CourseNotFound;
-import Model.Exception.CourseOfferingsNotFound;
-import Model.Exception.DepartmentNotFound;
-import Model.Exception.SectionNotFound;
+import Model.Exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,6 +107,21 @@ public class Controller {
     @PostMapping("addoffering")
     @ResponseStatus(HttpStatus.ACCEPTED)
     private void addCourseOffering(@RequestBody APICourseOfferingDTO dto) {
+        if (String.valueOf(dto.getSemester()).length() != 4) {
+            throw new IncompleteInput("Semester must be 4 digits.");
+        } else if (dto.getLocation() == null) {
+            throw new IncompleteInput("Location required.");
+        } else if (dto.getEnrollmentCap() < 0 || dto.getEnrollmentTotal() < 0) {
+            throw new IncompleteInput("Enrollment Total must be 0 or greater");
+        }else {
+            try {
+                Integer.parseInt(dto.getComponent());
+                throw new IncompleteInput("The provided component is an integer, it should be a string.");
+            } catch (NumberFormatException e) {
+                // If parsing fails, do nothing as the String is an intended String.
+            }
+        }
+
         CourseData data = dto.getCourseData();
         for (Department department: departmentList) {
             if (department.getName().equals(dto.getSubjectName())) {
@@ -218,5 +230,9 @@ public class Controller {
         return error.getMessage();
     }
 
-
+    @ExceptionHandler(IncompleteInput.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String IncompleteInputHandler(IncompleteInput error) {
+        return error.getMessage();
+    }
 }

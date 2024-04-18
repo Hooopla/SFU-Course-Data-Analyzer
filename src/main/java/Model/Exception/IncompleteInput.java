@@ -1,11 +1,11 @@
 package Model.Exception;
 
 public class IncompleteInput extends RuntimeException{
-    IncompleteInput() {
+    public IncompleteInput() {
         super();
     }
 
-    IncompleteInput(String message) {
+    public IncompleteInput(String message) {
         super(message);
     }
 }
